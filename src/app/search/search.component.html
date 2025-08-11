@@ -1,0 +1,17 @@
+<form [formGroup]="form" (ngSubmit)="onSearch()" class="search-form">
+    <mat-radio-group formControlName="type" (change)="onSearchTypeChange()">
+        <mat-radio-button value="aircraft">Aircraft</mat-radio-button>
+        <mat-radio-button value="callsign">Callsign</mat-radio-button>
+    </mat-radio-group>
+    <div style="display: flex;align-items: baseline;">
+
+        <mat-form-field appearance="outline" class="input-field">
+            <mat-label>Enter 1 or more values (comma-separated)</mat-label>
+            <input matInput formControlName="input" />
+        </mat-form-field>
+
+        <button mat-raised-button color="primary" [disabled]="!form.get('input')?.value" type="submit">
+            Search
+        </button>
+    </div>
+</form>

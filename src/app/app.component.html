@@ -1,0 +1,16 @@
+<div class="main">
+  <div style="width: 50%;">
+
+    <div class="search-sec">
+      <h1>Aircraft Search</h1>
+
+      <app-search (type)="handleType($event)" (results)="handleResults($event)"></app-search>
+    </div>
+    <app-aircrafts-responses [type]="type" [results]="results"></app-aircrafts-responses>
+  </div>
+
+</div>
+
+
+
+<router-outlet />

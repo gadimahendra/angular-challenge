@@ -1,0 +1,51 @@
+<div style="text-align: left;" *ngIf="results.length === 0">No results to display.</div>
+
+<mat-card *ngFor="let item of results" class="result-card">
+    <ng-container *ngIf="!item.error; else errorTemplate">
+        <!-- <pre>{{ item | json }}</pre> -->
+        <div class="card-con">
+            <div *ngIf="type=='aircraft'">
+                <h3>{{ item.response.aircraft.manufacturer }} - {{ item.response.aircraft.mode_s || 'Unknown Model' }}
+                </h3>
+
+                <p><strong>Type:</strong> {{ item.response.aircraft.type || '-' }}</p>
+                <p><strong>Registration:</strong> {{ item.response.aircraft.registration || '-' }}</p>
+                <p><strong>Owner:</strong> {{ item.response.aircraft.registered_owner || '-' }}</p>
+                <p><strong>Country:</strong> {{ item.response.aircraft.registered_owner_country_name || '-' }}</p>
+            </div>
+
+            <div *ngIf="type=='callsign'">
+                <h2>Flight: {{ item.response.flightroute.callsign }}</h2>
+
+                <p><strong>Airline:</strong> {{ item.response.flightroute.airline?.name || '-' }} ({{
+                    item.response.flightroute.airline?.icao || '-' }})</p>
+                <p><strong>Callsign (ICAO):</strong> {{ item.response.flightroute.callsign_icao || '-' }}</p>
+                <p><strong>Callsign (IATA):</strong> {{ item.response.flightroute.callsign_iata || '-' }}</p>
+
+                <h3>Route</h3>
+                <p><strong>Origin:</strong> {{ item.response.flightroute.origin?.name || '-' }} ({{
+                    item.response.flightroute.origin?.icao_code || '-' }}) -
+                    {{ item.response.flightroute.origin?.country_name || '-' }}</p>
+
+                <ng-container *ngIf="item.response.flightroute.midpoint">
+                    <p><strong>Midpoint:</strong> {{ item.response.flightroute.midpoint?.name || '-' }} ({{
+                        item.response.flightroute.midpoint?.icao_code ||
+                        '-' }}) - {{ item.response.flightroute.midpoint?.country_name || '-' }}</p>
+                </ng-container>
+
+                <p><strong>Destination:</strong> {{ item.response.flightroute.destination?.name || '-' }} ({{
+                    item.response.flightroute.destination?.icao_code
+                    || '-' }}) - {{ item.response.flightroute.destination?.country_name || '-' }}</p>
+            </div>
+
+
+            <img *ngIf="type=='aircraft'" height="200px" [src]="item.response.aircraft.url_photo"
+                [alt]="item.response.aircraft.type" />
+        </div>
+
+    </ng-container>
+
+    <ng-template #errorTemplate>
+        <p class="error">Error: {{ item.message }} for <strong>{{ item.code }}</strong></p>
+    </ng-template>
+</mat-card>

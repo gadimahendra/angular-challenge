@@ -1,34 +1,45 @@
-# time:matters Angular Challenge
 
-## Introduction
-This is a our short coding challenge in Angular to get some more insights about your coding skills. The given task should be handleable within 1-2 hours. 
+## What is this?
 
-> Our focus: We're looking for code that is **clean**, **readable** and **maintainable**. 
+This is a simple web app built with Angular that lets you look up aircraft information. You can search by:
 
-If you have any questions feel free to contact us:
-- Joachim / joachim.roppert@time-matters.com
-- Sascha / sascha.kurr@time-matters.com
+- **Registration code** (like the plane’s tail number)
+- **Callsign** (the flight’s radio identifier)
 
-# The task
+You can enter one or more values at once (comma separated) and see the results 
 
-Fork that repository, create an *Angular based* project, preferably with Angular Material components, and implement a little application. We want to access aircraft data of an API (see link at the end) and show that in a nice way in the browser.
-You can search with it either for aircrafts by their registration code and get some details about the plane itself or search by their callsigns to get more information about their routing.
 
-### Requirements
-* A form with two elements
-  * A switch (e.g. a radio box) to define the search type (aircraft/callsign)
-  * An input field to enter 1-n values (there should be a way to search multiple values at once)
-* Some (basic) error handling for non-existing values (or other responses from the API)
-* Visual representation of the results in a way you think it makes sense, be creative!
+## Technologies used
 
-You find more about the (free and not limited) API in here:
-https://www.adsbdb.com/
+- Angular 18 (standalone components)
+- Angular Material (UI components like cards, buttons, radios, snackbar)
+- Reactive Forms for form control
+- HttpClient to call the API
+- RxJS
 
-We don't care (in that challenge) about perfect designs, mobile optimization or handling every single error response/user input.
-We care more about your code and the way you work(ed) on that task.
+## ENV
+- Base API URL managed via environment config
+- To avoid CORS (Cross-Origin Resource Sharing) issues during development, I used a proxy configuration in Angular.
+- I used a proxy setup to bypass CORS issues when making API requests during local development.
 
-Don't get lost by moving the visuals in a perfect way with perfect colors.
 
-Focus on the core.
-And enjoy!
+## How to use
+
+1. Choose whether you want to search by **Registration** or **Callsign** using the radio buttons.
+2. Enter one or more codes separated by commas.
+3. Click the **Search** button.
+4. View the aircraft or flight details in the Mat card.
+5. If any value is not found, an error message will be shown for that entry, including a notification using a snackbar
+
+## How to Get the Repo, Install, and Run Locally
+
+1. **Clone the repository**  
+   Open a terminal and run:
+   ```bash
+   git clone https://github.com/gadimahendra/angular-challenge.git
+   cd angular-challenge
+   npm install
+   ng serve 
+
+
 
