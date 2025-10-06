@@ -39,8 +39,8 @@
             </div>
 
 
-            <img *ngIf="type=='aircraft'" height="200px" [src]="item.response.aircraft.url_photo"
-                [alt]="item.response.aircraft.type" />
+            <img *ngIf="type=='aircraft'&& item.response.aircraft.url_photo" height="200px"
+                [src]="item.response.aircraft.url_photo" [alt]="item.response.aircraft.type" />
         </div>
 
     </ng-container>

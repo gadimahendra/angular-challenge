@@ -1,41 +1,48 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { forkJoin, Observable, of } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { catchError, share, shareReplay } from 'rxjs/operators';
 import { environment } from '../environments/environment';
 
 @Injectable({
   providedIn: 'root',
-
 })
 export class AircraftService {
+  baseUrl: any = environment.apiBaseUrl;
 
-  baseUrl: any = environment.apiBaseUrl
-
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   getByRegistration(codes: string[]) {
     return this.getMultiple(codes, 'aircraft');
   }
 
-
-
   getByCallsign(codes: string[]) {
     return this.getMultiple(codes, 'callsign');
   }
 
-  private getMultiple(codes: string[], endpoint: string) {
-    const requests = codes.map(code =>
-      this.http.get(`${this.baseUrl}/${endpoint}/${code}`).pipe(
-        catchError(error => of({
-          error: true,
-          message: error.message || 'Not found',
-          code
-        }))
-      )
-    );
+  private airCraftResults = new Map<string, Observable<any>>();
+  private lastvalue: null | string = null;
 
-    return forkJoin(requests);
+  getMultiple(codes: string[], type: string) {
+    if (this.lastvalue != type) {
+      this.airCraftResults.clear();
+      this.lastvalue = type;
+    }
+
+    let results: Observable<any>[] = [];
+
+    for (let i = 0; i < codes.length; i++) {
+      if (!this.airCraftResults.has(codes[i])) {
+        let req = this.http
+          .get(`${this.baseUrl}/${type}/${codes[i]}`)
+          .pipe(shareReplay(1));
+        this.airCraftResults.set(codes[i], req);
+      }
+      let obs = this.airCraftResults.get(codes[i]);
+      if (obs) {
+        results.push(obs);
+      }
+    }
+    return forkJoin(results);
   }
-
 }
