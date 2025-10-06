@@ -1,5 +1,5 @@
 
-## What is this?
+## Overview?
 
 This is a simple web app built with Angular that lets you look up aircraft information. You can search by:
 
@@ -25,11 +25,22 @@ You can enter one or more values at once (comma separated) and see the results
 
 ## How to use
 
-1. Choose whether you want to search by **Registration** or **Callsign** using the radio buttons.
+1. Choose whether you want to search by **Registration Aircraft** or **Callsign** using the radio buttons.
 2. Enter one or more codes separated by commas.
-3. Click the **Search** button.
-4. View the aircraft or flight details in the Mat card.
-5. If any value is not found, an error message will be shown for that entry, including a notification using a snackbar
+3. The **Search** button is **disabled by default** and will only become enabled after you enter the code
+4. Click the **Search** button.
+5. View the aircraft or flight details in the Mat card.
+6. If any value is not found, an error message will be shown for that entry, including a notification using a snackbar
+
+## Example Codes
+
+You can use these codes to try the search:
+
+- **Registration Aircraft** (aircraft codes):  
+  39640B, C8236E, A0138A, 0D08A5
+
+- **Callsign** (flight codes):  
+  DLH18Y, EDW78, AAL2781, RYR91MQ
 
 ## How to Get the Repo, Install, and Run Locally
 
